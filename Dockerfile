@@ -1,13 +1,8 @@
-FROM nginx:alpine
+# Ganti dari nginx:alpine ke versi unprivileged
+FROM nginxinc/nginx-unprivileged:alpine
 
-RUN touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    chown -R nginx:nginx /var/log/nginx && \
-    chown -R nginx:nginx /etc/nginx/conf.d
-
-USER nginx
-
+# Salin file ke path yang sedikit berbeda (sesuai standar unprivileged)
 COPY index.html /usr/share/nginx/html/index.html
 
-EXPOSE 80
+# Port default di image ini adalah 8080, bukan 80
+EXPOSE 8080
